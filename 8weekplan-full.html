@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#7B2D26">
+<title>8週求職進度表（完整版）</title>
+<style>
+  :root{
+    --navy:#7B2D26; --bg:#FAF8F7; --card:#FFF; --border:#E8DDDB;
+    --text:#22272F; --muted:#6B7280; --accent:#C0574E; --done:#3FA34D;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  body{
+    margin:0;background:var(--bg);color:var(--text);
+    font-family:"Microsoft JhengHei","PingFang TC","Noto Sans TC",-apple-system,sans-serif;
+    line-height:1.6;padding-bottom:60px;
+  }
+  header{
+    background:var(--navy);color:#fff;padding:18px 16px 16px;
+    position:sticky;top:0;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,.12);
+  }
+  header h1{margin:0;font-size:19px;font-weight:700;}
+  header .sub{font-size:12.5px;opacity:.85;margin-top:3px;}
+  .overall{margin-top:11px;background:rgba(255,255,255,.2);border-radius:999px;height:9px;overflow:hidden;}
+  .overall i{display:block;height:100%;width:0%;background:#F0B27A;border-radius:999px;transition:width .3s;}
+  .overall-txt{font-size:12px;margin-top:6px;opacity:.95;}
+
+  main{padding:14px 12px 0;}
+
+  .warn{
+    background:#FDECEA;border:1px solid #F5C6C2;border-radius:12px;
+    padding:13px 15px;margin-bottom:12px;font-size:13px;color:#7B2D26;
+  }
+  .warn b{display:block;margin-bottom:5px;font-size:13.5px;}
+  .warn div{margin:4px 0;}
+
+  .tips{
+    background:#FFF8E7;border:1px solid #F5E3B8;border-radius:12px;
+    padding:13px 15px;margin-bottom:14px;font-size:13px;color:#6B4E12;
+  }
+  .tips b{display:block;margin-bottom:5px;color:#8A5A00;font-size:13.5px;}
+  .tips div{margin:4px 0;}
+
+  details.week{
+    background:var(--card);border:1px solid var(--border);
+    border-radius:12px;margin-bottom:13px;overflow:hidden;
+  }
+  details.week > summary{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    padding:13px 14px;cursor:pointer;user-select:none;list-style:none;
+  }
+  details.week > summary::-webkit-details-marker{display:none;}
+  .sum-left{display:flex;align-items:center;gap:9px;min-width:0;}
+  .arrow{font-size:12px;color:var(--muted);flex-shrink:0;}
+  details.week[open] .arrow{transform:rotate(0deg);}
+  details.week:not([open]) .arrow{transform:rotate(-90deg);}
+  .w-title{font-weight:700;font-size:15.5px;}
+  .w-date{font-size:11.5px;color:var(--muted);margin-top:1px;}
+  .badge{
+    font-size:11.5px;font-weight:700;color:var(--navy);background:#FBEDEB;
+    border-radius:999px;padding:3px 9px;white-space:nowrap;flex-shrink:0;
+  }
+  .badge.done{background:#EAF7EC;color:var(--done);}
+
+  .bar{height:4px;background:#F3EDEC;}
+  .bar i{display:block;height:100%;width:0%;background:var(--accent);transition:width .3s;}
+  .bar i.done{background:var(--done);}
+
+  ul{list-style:none;margin:0;padding:4px 0 8px;}
+  li{display:flex;align-items:flex-start;padding:9px 14px;border-top:1px solid #F6F1F0;}
+  li:first-child{border-top:none;}
+  label{display:flex;align-items:flex-start;gap:10px;cursor:pointer;width:100%;}
+  input[type=checkbox]{
+    appearance:none;-webkit-appearance:none;
+    width:21px;height:21px;flex-shrink:0;margin:1px 0 0;
+    border:2px solid #D6C5C2;border-radius:6px;background:#fff;
+    position:relative;cursor:pointer;transition:.15s;
+  }
+  input[type=checkbox]:checked{background:var(--done);border-color:var(--done);}
+  input[type=checkbox]:checked::after{
+    content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;
+    border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);
+  }
+  .txt{font-size:14.5px;}
+  input[type=checkbox]:checked ~ .txt{text-decoration:line-through;color:#9AA3B0;}
+  .flag{
+    display:inline-block;font-size:11px;font-weight:700;color:#B45309;
+    background:#FEF3C7;padding:1px 7px;border-radius:5px;margin-left:6px;vertical-align:1px;
+  }
+  .opt{
+    display:inline-block;font-size:11px;font-weight:700;color:#6B7280;
+    background:#F1F3F7;padding:1px 7px;border-radius:5px;margin-left:6px;vertical-align:1px;
+  }
+  .note{
+    font-size:12.5px;color:var(--muted);background:#FDFBFB;
+    border-top:1px solid #F6F1F0;padding:10px 14px;
+  }
+  .sect{
+    font-size:11.5px;font-weight:700;color:var(--muted);
+    padding:9px 14px 3px;background:#FDFBFB;border-top:1px solid #F6F1F0;
+    letter-spacing:.5px;
+  }
+  .reset{
+    display:block;width:100%;margin:4px 0 20px;padding:11px;
+    border:1px solid var(--border);background:#fff;color:var(--muted);
+    border-radius:10px;font-size:13px;cursor:pointer;font-family:inherit;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>8 週求職進度表（完整版）</h1>
+  <div class="sub">進階 43 堂全看 ・ 每週 17～20 小時</div>
+  <div class="overall"><i id="ob"></i></div>
+  <div class="overall-txt" id="ot">統計中…</div>
+</header>
+
+<main>
+
+<div class="warn">
+  <b>⚠️ 高強度提醒</b>
+  <div>・每週 17～20 小時，每天約 2.5～2.9 小時（含週末）</div>
+  <div>・<b>超出你原本設定的 12～15 小時上限</b></div>
+  <div>・幾乎沒有容錯空間，某週卡住後面很難追</div>
+  <div>・執行 2～3 週後若跟不上，及早說，改回壓縮版或延期</div>
+</div>
+
+<div class="tips">
+  <b>執行原則</b>
+  <div>・<b>影片優先於 C#</b>：時間不夠時先保影片</div>
+  <div>・看影片時<b>打開對應筆記一起看</b>，理解快很多</div>
+  <div>・卡住就截圖問 Claude，別自己硬撐</div>
+</div>
+
+<details class="week" open data-w="0">
+  <summary><div class="sum-left"><span class="arrow">▼</span>
+    <div><div class="w-title">第 1 週</div><div class="w-date">9/7 – 9/13　約 18 hr</div></div></div>
+    <span class="badge">0/11</span></summary>
+  <div class="bar"><i></i></div>
+  <div class="sect">影片 · 必修（8.4 hr）</div>
+  <ul>
+    <li><label><input type="checkbox" id="a0"><span class="txt">必修 20：Integer to Roman與資料結構</span></label></li>
+    <li><label><input type="checkbox" id="a1"><span class="txt">必修 21：VSCode除錯與GitHub Pages部署</span></label></li>
+    <li><label><input type="checkbox" id="a2"><span class="txt">必修 22：個人名片網站與AI協作</span></label></li>
+    <li><label><input type="checkbox" id="a3"><span class="txt">必修 23：雙指標技巧與關聯式資料庫入門</span></label></li>
+    <li><label><input type="checkbox" id="a4"><span class="txt">必修 24：雙指標刷題與SQL入門</span></label></li>
+    <li><label><input type="checkbox" id="a5"><span class="txt">必修 25：SQL查詢語法</span></label></li>
+  </ul>
+  <div class="sect">C#（3 hr）</div>
+  <ul>
+    <li><label><input type="checkbox" id="a6"><span class="txt">C# 第 1 堂筆記</span></label></li>
+    <li><label><input type="checkbox" id="a7"><span class="txt">C# 第 2 堂筆記</span></label></li>
+    <li><label><input type="checkbox" id="a8"><span class="txt">C# 第 3 堂筆記</span></label></li>
+  </ul>
+  <div class="sect">築光（2.5 hr）</div>
+  <ul>
+    <li><label><input type="checkbox" id="a9"><span class="txt">核心功能更新定案（想清楚+寫下來）<span class="flag">最優先</span></span></label></li>
+  </ul>
+  <div class="sect">機動（4 hr）</div>
+  <ul>
+    <li><label><input type="checkbox" id="a10"><span class="txt">補進度 / 消化卡住的內容</span></label></li>
+  </ul>
+</details>
+
+<details class="week" data-w="1">
+  <summary><div class="sum-left"><span class="arrow">▼</span>
+    <div><div class="w-title">第 2 週</div><div class="w-date">9/14 – 9/20　約 18 hr</div></div></div>
+    <span class="badge">0/12</span></summary>
+  <div class="bar"><i></i></div>
+  <div class="sect">影片 · 必修完結（8.4 hr）</div>
+  <ul>
+    <li><label><input type="checkbox" id="b0"><span class="txt">必修 26：MySQL安裝與關聯式資料庫設計</span></label></li>
+    <li><label><input type="checkbox" id="b1"><span class="txt">必修 27：HashMap與SQL新增修改刪除<span class="flag">面試常考</span></span></label></li>
+    <li><label><input type="checkbox" id="b2"><span class="txt">必修 28：SQL統計函數與多表關聯</span></label></li>
+    <li><label><input type="checkbox" id="b3"><span class="txt">必修 29：SQL JOIN多表關聯查詢</span></label></li>
+    <li><label><input type="checkbox" id="b4"><span class="txt">必修 30：MySQL連線串接與電子雞存檔</span></label></li>
+    <li><label><input type="checkbox" id="b5"><span class="txt">必修 31：Java與MySQL串接總驗收<span class="flag">必修完成</span></span></label></li>
+  </ul>
+  <div class="sect">C#（3 hr）</div>
+  <ul>
+    <li><label><input type="checkbox" id="b6"><span class="txt">C# 第 4 堂筆記</span></label></li>
+    <li><label><input type="checkbox" id="b7"><span class="txt">C# 第 5 堂筆記</span></label></li>
+    <li><label><input type="checkbox" id="b8"><span class="txt">C# 第 6 堂筆記</span></label></li>
+  </ul>
+  <div class="sect">築光（2.5 hr）</div>
+  <ul>
+    <li><label><input type="checkbox" id="b9"><span class="txt">GAS：7 個 Sheet + 基礎檔案</span></label></li>
+  </ul>
+  <div class="sect">面試（1 hr）+ 機動（3 hr）</div>
+  <ul>
+    <li><label><input type="checkbox" id="b10"><span class="txt">履歷草稿：3 作品各 3 行</span></label></li>
+    <li><label><input type="checkbox" id="b11"><span class="txt">機動：補進度</span></label></li>
+  </ul>
+</details>
+
+<details class="week" data-w="2">
+  <summary><div class="sum-left"><span class="arrow">▼</span>
+    <div><div class="w-title">第 3 週</div><div class="w-date">9/21 – 9/27　約 19 hr</div></div></div>
+    <span class="badge">0/13</span></summary>
+  <div class="bar"><i></i></div>
+  <div class="sect">影片 · 進階 1～8（11.2 hr）</div>
+  <ul>
+    <li><label><input type="checkbox" id="c0"><span class="txt">進階 1：前後端分離架構與SQL JOIN</span></label></li>
+    <li><label><input type="checkbox" id="c1"><span class="txt">進階 2：SpringBoot架構與設計方法論</span></label></li>
+    <li><label><input type="checkbox" id="c2"><span class="txt">進階 3：限制條件與MVP設計</span></label></li>
+    <li><label><input type="checkbox" id="c3"><span class="txt">進階 4：Maven、三層架構與RESTful API<span class="flag">核心</span></span></label></li>
+    <li><label><input type="checkbox" id="c4"><span class="txt">進階 5：REST API與資料庫串接</span></label></li>
+    <li><label><input type="checkbox" id="c5"><span class="txt">進階 6：資料庫設計思維與JPA/Entity</span></label></li>
+    <li><label><input type="checkbox" id="c6"><span class="txt">進階 7：反轉注入與API路由分組<span class="flag">IoC必考</span></span></label></li>
+    <li><label><input type="checkbox" id="c7"><span class="txt">進階 8：SpringBoot架站與ngrok對外連線</span></label></li>
+  </ul>
+  <div class="sect">C#（3 hr）</div>
+  <ul>
+    <li><label><input type="checkbox" id="c8"><span class="txt">C# 第 7 堂筆記</span></label></li>
+    <li><label><input type="checkbox" id="c9"><span class="txt">C# 第 8 堂筆記</span></label></li>
+    <li><label><input type="checkbox" id="c10"><span class="txt">C# 第 9 堂筆記</span></label></li>
+  </ul>
+  <div class="sect">築光（2.5 hr）+ 面試（1 hr）</div>
+  <ul>
+    <li><label><input type="checkbox" id="c11"><span class="txt">GAS：登入註冊 + 面向CRUD + 目標CRUD</span></label></li>
+    <li><label><input type="checkbox" id="c12"><span class="txt">履歷：補完轉職動機</span></label></li>
+  </ul>
+</details>
+
+<details class="week" data-w="3">
+  <summary><div class="sum-left"><span class="arrow">▼</span>
+    <div><div class="w-title">第 4 週</div><div class="w-date">9/28 – 10/4　約 19 hr</div></div></div>
+    <span class="badge">0/13</span></summary>
+  <div class="bar"><i></i></div>
+  <div class="sect">影片 · 進階 9～16（11.2 hr）</div>
+  <ul>
+    <li><label><input type="checkbox" id="d0"><span class="txt">進階 9：SpringBoot MVC與心跳登錄系統</span></label></li>
+    <li><label><input type="checkbox" id="d1"><span class="txt">進階 10：DTO契約設計與Service層<span class="flag">DTO必考</span></span></label></li>
+    <li><label><input type="checkbox" id="d2"><span class="txt">進階 11：SQL語法總複習與CROSS JOIN</span></label></li>
+    <li><label><input type="checkbox" id="d3"><span class="txt">進階 12：SpringBoot架構與座位系統資料設計</span></label></li>
+    <li><label><input type="checkbox" id="d4"><span class="txt">進階 13：關聯式資料庫PK/FK實戰</span></label></li>
+    <li><label><input type="checkbox" id="d5"><span class="txt">進階 14：AI協作系統思維與PK/FK設計</span></label></li>
+    <li><label><input type="checkbox" id="d6"><span class="txt">進階 15：Prototype驗證與GitHub Pages部署</span></label></li>
+    <li><label><input type="checkbox" id="d7"><span class="txt">進階 16：AI協作與Prototype實作</span></label></li>
+  </ul>
+  <div class="sect">C#（3 hr）</div>
+  <ul>
+    <li><label><input type="checkbox" id="d8"><span class="txt">C# 第 10 堂筆記</span></label></li>
+    <li><label><input type="checkbox" id="d9"><span class="txt">C# 第 11 堂筆記</span></label></li>
+    <li><label><input type="checkbox" id="d10"><span class="txt">C# 第 12 堂筆記</span></label></li>
+  </ul>
+  <div class="sect">築光（3 hr）+ 面試（1 hr）</div>
+  <ul>
+    <li><label><input type="checkbox" id="d11"><span class="txt">GAS：任務CRUD + 完成/取消（LockService）</span></label></li>
+    <li><label><input type="checkbox" id="d12"><span class="txt">履歷貼給 Claude 改一輪</span></label></li>
+  </ul>
+</details>
+
+<details class="week" data-w="4">
+  <summary><div class="sum-left"><span class="arrow">▼</span>
+    <div><div class="w-title">第 5 週</div><div class="w-date">10/5 – 10/11　約 20 hr</div></div></div>
+    <span class="badge">0/14</span></summary>
+  <div class="bar"><i></i></div>
+  <div class="sect">影片 · 進階 17～24（11.2 hr）</div>
+  <ul>
+    <li><label><input type="checkbox" id="e0"><span class="txt">進階 17：API設計與SpringBoot專案實作</span></label></li>
+    <li><label><input type="checkbox" id="e1"><span class="txt">進階 18：SpringBoot MVP整合與AI協作</span></label></li>
+    <li><label><input type="checkbox" id="e2"><span class="txt">進階 19：SpringBoot分層架構與方法論</span></label></li>
+    <li><label><input type="checkbox" id="e3"><span class="txt">進階 20：價值鏈思維與分層架構</span></label></li>
+    <li><label><input type="checkbox" id="e4"><span class="txt">進階 21：AI代理人整合與環境建置</span></label></li>
+    <li><label><input type="checkbox" id="e5"><span class="txt">進階 22：AI Agent住進程式與藍圖收斂</span></label></li>
+    <li><label><input type="checkbox" id="e6"><span class="txt">進階 23：AI協作三角色與問題收斂</span></label></li>
+    <li><label><input type="checkbox" id="e7"><span class="txt">進階 24：AI協作開發心法與State同步</span></label></li>
+  </ul>
+  <div class="sect">C#（4 hr）</div>
+  <ul>
+    <li><label><input type="checkbox" id="e8"><span class="txt">C# 第 13 堂筆記</span></label></li>
+    <li><label><input type="checkbox" id="e9"><span class="txt">C# 第 14 堂筆記</span></label></li>
+    <li><label><input type="checkbox" id="e10"><span class="txt">C# 第 15 堂筆記</span></label></li>
+    <li><label><input type="checkbox" id="e11"><span class="txt">C# 第 16 堂筆記</span></label></li>
+  </ul>
+  <div class="sect">築光（2.5 hr）+ 面試（2 hr）</div>
+  <ul>
+    <li><label><input type="checkbox" id="e12"><span class="txt">GAS：前端串接 + 測試<span class="flag">MVP完成</span></span></label></li>
+    <li><label><input type="checkbox" id="e13"><span class="txt">模擬面試 ①（單線故事法講築光）</span></label></li>
+  </ul>
+</details>
+
+<details class="week" data-w="5">
+  <summary><div class="sum-left"><span class="arrow">▼</span>
+    <div><div class="w-title">第 6 週</div><div class="w-date">10/12 – 10/18　約 20 hr</div></div></div>
+    <span class="badge">0/14</span></summary>
+  <div class="bar"><i></i></div>
+  <div class="sect">影片 · 進階 25～32（11.2 hr）</div>
+  <ul>
+    <li><label><input type="checkbox" id="f0"><span class="txt">進階 25：Google生態系AI工具與除錯</span></label></li>
+    <li><label><input type="checkbox" id="f1"><span class="txt">進階 26：AI協作除錯SOP與里程碑檢視</span></label></li>
+    <li><label><input type="checkbox" id="f2"><span class="txt">進階 27：Docker容器化與微服務架構<span class="flag">Docker必考</span></span></label></li>
+    <li><label><input type="checkbox" id="f3"><span class="txt">進階 28：作品收斂AI交叉驗證與Docker</span></label></li>
+    <li><label><input type="checkbox" id="f4"><span class="txt">進階 29：Docker與SpringBoot打包部署</span></label></li>
+    <li><label><input type="checkbox" id="f5"><span class="txt">進階 30：專案盤點與Docker容器化</span></label></li>
+    <li><label><input type="checkbox" id="f6"><span class="txt">進階 31：微服務架構與專案期末驗收</span></label></li>
+    <li><label><input type="checkbox" id="f7"><span class="txt">進階 32：微服務架構深化與Docker整合</span></label></li>
+  </ul>
+  <div class="sect">C#（4 hr）</div>
+  <ul>
+    <li><label><input type="checkbox" id="f8"><span class="txt">C# 第 17 堂筆記</span></label></li>
+    <li><label><input type="checkbox" id="f9"><span class="txt">C# 第 18 堂筆記</span></label></li>
+    <li><label><input type="checkbox" id="f10"><span class="txt">C# 第 19 堂筆記</span></label></li>
+  </ul>
+  <div class="sect">築光 · 主機部署（3 hr）+ 面試（2 hr）</div>
+  <ul>
+    <li><label><input type="checkbox" id="f11"><span class="txt">Docker 部署 SQLite 版 + Cloudflare Tunnel</span></label></li>
+    <li><label><input type="checkbox" id="f12"><span class="txt">確認外部可連線</span></label></li>
+    <li><label><input type="checkbox" id="f13"><span class="txt">模擬面試 ②（畫藍圖提問法）</span></label></li>
+  </ul>
+</details>
+
+<details class="week" data-w="6">
+  <summary><div class="sum-left"><span class="arrow">▼</span>
+    <div><div class="w-title">第 7 週</div><div class="w-date">10/19 – 10/25　約 20 hr</div></div></div>
+    <span class="badge">0/15</span></summary>
+  <div class="bar"><i></i></div>
+  <div class="sect">影片 · 進階 33～43 完結（15.4 hr）</div>
+  <ul>
+    <li><label><input type="checkbox" id="g0"><span class="txt">進階 33：微服務設計思維與除錯實務</span></label></li>
+    <li><label><input type="checkbox" id="g1"><span class="txt">進階 34：專案盤點方法論與AI Agent</span></label></li>
+    <li><label><input type="checkbox" id="g2"><span class="txt">進階 35：SQL注入資安與AI協作四大心法<span class="flag">資安必考</span></span></label></li>
+    <li><label><input type="checkbox" id="g3"><span class="txt">進階 36：資料旅程與價值鏈設計思維</span></label></li>
+    <li><label><input type="checkbox" id="g4"><span class="txt">進階 37：資安複習與AI協作除錯方法論</span></label></li>
+    <li><label><input type="checkbox" id="g5"><span class="txt">進階 38：CI/CD與零信任安全</span></label></li>
+    <li><label><input type="checkbox" id="g6"><span class="txt">進階 39：作品呈現準備與AppScript輕量後端</span></label></li>
+    <li><label><input type="checkbox" id="g7"><span class="txt">進階 40：作品交流分享與求職心法</span></label></li>
+    <li><label><input type="checkbox" id="g8"><span class="txt">進階 41：SpringBoot核心複習與雲端部署</span></label></li>
+    <li><label><input type="checkbox" id="g9"><span class="txt">進階 42：雲端部署三方案與作品交流</span></label></li>
+    <li><label><input type="checkbox" id="g10"><span class="txt">進階 43：結業分享會與職涯地圖<span class="flag">影片全完成</span></span></label></li>
+  </ul>
+  <div class="sect">C#（4 hr）</div>
+  <ul>
+    <li><label><input type="checkbox" id="g11"><span class="txt">C# 第 20 堂筆記</span></label></li>
+    <li><label><input type="checkbox" id="g12"><span class="txt">C# 第 21 堂筆記</span></label></li>
+    <li><label><input type="checkbox" id="g13"><span class="txt">C# 第 22 堂筆記<span class="flag">C#完成</span></span></label></li>
+  </ul>
+  <div class="sect">築光（1 hr）</div>
+  <ul>
+    <li><label><input type="checkbox" id="g14"><span class="txt">主機測試修bug + README + 展示素材</span></label></li>
+  </ul>
+  <div class="note">⚠️ 這週影片量最大（11 堂），建議提前在前幾週的機動時間預先消化幾堂。</div>
+</details>
+
+<details class="week" data-w="7">
+  <summary><div class="sum-left"><span class="arrow">▼</span>
+    <div><div class="w-title">第 8 週</div><div class="w-date">10/26 – 11/1　約 12 hr</div></div></div>
+    <span class="badge">0/6</span></summary>
+  <div class="bar"><i></i></div>
+  <div class="sect">面試（10 hr）</div>
+  <ul>
+    <li><label><input type="checkbox" id="h0"><span class="txt">核心觀念地圖總複習</span></label></li>
+    <li><label><input type="checkbox" id="h1"><span class="txt">模擬面試 ③</span></label></li>
+    <li><label><input type="checkbox" id="h2"><span class="txt">模擬面試 ④</span></label></li>
+    <li><label><input type="checkbox" id="h3"><span class="txt">補強被問倒的地方</span></label></li>
+    <li><label><input type="checkbox" id="h4"><span class="txt">開始正式投履歷<span class="flag">里程碑</span></span></label></li>
+  </ul>
+  <div class="sect">築光（2 hr）</div>
+  <ul>
+    <li><label><input type="checkbox" id="h5"><span class="txt">收尾：Vue3 / 獎勵系統 / About頁<span class="opt">加分</span></span></label></li>
+  </ul>
+  <div class="note">💡 履歷附的網址用「主機」的，不是 Railway。</div>
+</details>
+
+<button class="reset" id="resetBtn">清除所有勾選紀錄</button>
+
+</main>
+
+<script>
+(function(){
+  var KEY = "job8w_full_v1";
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e){ state = {}; }
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+  var boxes = document.querySelectorAll('input[type=checkbox]');
+  for (var i=0;i<boxes.length;i++){
+    if (state[boxes[i].id]) boxes[i].checked = true;
+    boxes[i].addEventListener('change', function(){
+      state[this.id] = this.checked; save(); update();
+    });
+  }
+  function update(){
+    var allTotal=0, allDone=0;
+    var weeks = document.querySelectorAll('details.week');
+    for (var w=0; w<weeks.length; w++){
+      var wb = weeks[w].querySelectorAll('input[type=checkbox]');
+      var done=0;
+      for (var j=0;j<wb.length;j++){ if(wb[j].checked) done++; }
+      allTotal += wb.length; allDone += done;
+      var badge = weeks[w].querySelector('.badge');
+      var barI  = weeks[w].querySelector('.bar i');
+      if (badge){
+        badge.textContent = done + "/" + wb.length;
+        if (done === wb.length) badge.classList.add('done'); else badge.classList.remove('done');
+      }
+      if (barI){
+        barI.style.width = (wb.length ? done/wb.length*100 : 0) + "%";
+        if (done === wb.length) barI.classList.add('done'); else barI.classList.remove('done');
+      }
+    }
+    var ob=document.getElementById('ob'), ot=document.getElementById('ot');
+    if (ob) ob.style.width = (allTotal ? allDone/allTotal*100 : 0) + "%";
+    if (ot) ot.textContent = allDone + " / " + allTotal + " 完成";
+  }
+  var rb = document.getElementById('resetBtn');
+  if (rb) rb.addEventListener('click', function(){
+    if (confirm("確定要清除所有勾選紀錄嗎？")){
+      state = {}; save();
+      for (var i=0;i<boxes.length;i++) boxes[i].checked = false;
+      update();
+    }
+  });
+  update();
+})();
+</script>
+</body>
+</html>
