@@ -16,7 +16,6 @@
     --muted:#6B7280;
     --line:#E3E8F0;
     --done:#2E9E6B;
-    --teal:#2A8C8C;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   body{
@@ -91,7 +90,6 @@
     background:var(--navy2);color:#fff;font-size:12px;font-weight:700;
     border-radius:6px;padding:3px 9px;white-space:nowrap;
   }
-  summary .stage.ext{background:var(--teal);}
   summary .title{flex:1;min-width:0;}
   summary .title .t{font-size:15px;font-weight:700;display:block;}
   summary .title .d{font-size:12px;color:var(--muted);}
@@ -139,10 +137,6 @@
     background:#FDECEC;border:1px solid #F3C9C9;color:#A13A3A;
     border-radius:8px;padding:9px 12px;margin:10px 0;font-size:13.5px;font-weight:700;
   }
-  .note{
-    background:#EAF5F5;border:1px solid #BFE0E0;color:#1E5E5E;
-    border-radius:8px;padding:9px 12px;margin:10px 0;font-size:13px;
-  }
   footer{text-align:center;font-size:12px;color:var(--muted);padding:24px 14px;}
   .reset{background:none;border:1px solid var(--line);color:var(--muted);
     border-radius:6px;padding:6px 14px;font-size:12px;font-family:inherit;cursor:pointer;}
@@ -153,7 +147,7 @@
 <header>
   <div class="headwrap">
     <h1>求職衝刺進度表</h1>
-    <div class="sub">10/26 → 12/14 ｜ 學習 11/20 前收完 · 11/23 企業媒合表單 · 之後投遞＋接案＋FHIR</div>
+    <div class="sub">10/26 → 11/20 ｜ 終點：11/23 企業媒合表單</div>
     <div class="overall">
       <div class="row"><span>總完成度</span><span id="otxt">0 / 0</span></div>
       <div class="obar"><span id="obar"></span></div>
@@ -171,13 +165,12 @@
   </div>
 
   <div class="rules">
-    <h3>規則</h3>
+    <h3>三條規則</h3>
     <ol>
       <li>看影片一定把那堂的筆記開在旁邊，影片是把筆記變成畫面，不是從零學。</li>
       <li>不要連續兩天完全沒動。25 分鐘也算動。</li>
       <li>落後時砍進階，不砍必修——必修 26–31 是筆試範圍。</li>
       <li>「延伸閱讀」是看影片前的 20 分鐘暖身，不是獨立項目。沒時間就跳過，不要讓它排擠影片。</li>
-      <li>11/20 前學習優先，兩個接案只做「需求訪談」，不寫程式。寫程式從 11/21 開始。</li>
     </ol>
   </div>
 
@@ -200,10 +193,13 @@
       <label class="item"><input type="checkbox"><span class="txt">必修 30 — MySQL連線串接與電子雞存檔<span class="sub">JDBC 串接</span></span></label>
       <label class="item"><input type="checkbox"><span class="txt">必修 31 — Java與MySQL串接總驗收<span class="sub">必修總整合</span></span></label>
 
-      <div class="grouphd">搭配閱讀｜《深入淺出 Java》翻對應章節就好</div>
-      <label class="item"><input type="checkbox"><span class="txt">看必修 27 時翻 第11章 資料結構 p309–364<span class="sub">p347 HashSet、p355 Map — HashMap 筆試常考</span></span></label>
-      <label class="item"><input type="checkbox"><span class="txt">看必修 30 時翻 第16章 序列化與檔案 I/O p539<span class="sub">電子雞存檔那段的原理</span></span></label>
-      <label class="item"><input type="checkbox"><span class="txt">看必修 31 時翻 第13章 例外處理 p421–445<span class="sub">JDBC 一定要 try/catch，這章講為什麼</span></span></label>
+      <div class="grouphd">搭配閱讀｜翻對應章節就好，不整本讀</div>
+      <label class="item"><input type="checkbox"><span class="txt">必修 26 → 《圖解 SQL》第0章 p14–49<span class="sub">MySQL 安裝、Workbench 用法、建資料庫與表格</span></span></label>
+      <label class="item"><input type="checkbox"><span class="txt">必修 27 → 《深入淺出 Java》第11章 p309–364<span class="sub">p347 HashSet、p355 Map — HashMap 筆試常考</span></span></label>
+      <label class="item"><input type="checkbox"><span class="txt">必修 28 → 《圖解 SQL》第4章 統整資料 p143–178<span class="sub">★ p171 HAVING vs WHERE、p173「每句 SQL 都有執行順序」</span></span></label>
+      <label class="item"><input type="checkbox"><span class="txt">必修 29 → 《圖解 SQL》第8章 合併表格 p311–349<span class="sub">UNION／內部／外部／CROSS JOIN、p346 ON 還是 USING</span></span></label>
+      <label class="item"><input type="checkbox"><span class="txt">必修 30 → 《MySQL 樂趣》第15章 p294–298<span class="sub">從 Java 呼叫 MySQL：選取、插入、呼叫預存程序</span></span></label>
+      <label class="item"><input type="checkbox"><span class="txt">必修 31 → 《深入淺出 Java》第13章 p421–445<span class="sub">JDBC 一定要 try/catch，這章講為什麼</span></span></label>
 
       <div class="grouphd">履歷</div>
       <label class="item"><input type="checkbox"><span class="txt">列 3 個作品，每個寫 3 行</span></label>
@@ -213,7 +209,8 @@
       <div class="grouphd">圖書館</div>
       <label class="item"><input type="checkbox"><span class="txt">10/28 還《深入淺出 C#》《漫畫設計模式》<span class="sub">不能續借。C# 那本先拍目錄，順手在 App 預約</span></span></label>
       <label class="item"><input type="checkbox"><span class="txt">還掉不讀的 4 本<span class="sub">深入淺出 Java／MySQL 開發的樂趣／世界第一簡單的演算法／GitHub Copilot</span></span></label>
-      <label class="item"><input type="checkbox"><span class="txt">10/28–11/03 續借《圖解 SQL 查詢》<span class="sub">這本筆試會用到，別讓它過期</span></span></label>
+      <label class="item"><input type="checkbox"><span class="txt">★ 10/28–11/03 續借《圖解 SQL 查詢》<span class="sub">這本是第1段和筆試的主力，續借後可用到 12 月初</span></span></label>
+      <label class="item"><input type="checkbox"><span class="txt">記住：《MySQL 樂趣》《世界第一簡單的演算法》11/18 到期且不能再續<span class="sub">所以它們全部排在第 3 段之前用完，第 4 段不排</span></span></label>
     </div>
   </details>
 
@@ -270,7 +267,10 @@
       <label class="item"><input type="checkbox"><span class="txt">基礎語法判讀<span class="sub">迴圈、陣列、int vs Integer、break / continue</span></span></label>
       <label class="item"><input type="checkbox"><span class="txt">刷題骨架複習<span class="sub">核心觀念地圖的六個技巧：拆位數／查表／累加器／雙指標…</span></span></label>
       <label class="item"><input type="checkbox"><span class="txt">讀設計模式筆記 第四章 5「三種修法」＋ 第五章原則總表<span class="sub">約 30 分鐘 · 單例、static、執行緒是筆試會碰的區塊</span></span></label>
-      <label class="item"><input type="checkbox"><span class="txt">翻《深入淺出 Java》第3章 p49–62＋第10章 p276–300<span class="sub">變數與參考、static、自動裝箱 p292、String 轉數字 p295 — 筆試會考</span></span></label>
+      <label class="item"><input type="checkbox"><span class="txt">★ 寫《圖解 SQL》各章章末「練習問題」<span class="sub">第4章 p178、第5章 p217、第8章 p349 — 有題目有解答，筆試最好的模擬</span></span></label>
+      <label class="item"><input type="checkbox"><span class="txt">翻《深入淺出 Java》第3章 p49–62＋第10章 p276–300<span class="sub">變數與參考、static、自動裝箱 p292、String 轉數字 p295</span></span></label>
+      <label class="item"><input type="checkbox"><span class="txt">翻《演算法》第5章 雜湊表 5-4～5-33<span class="sub">HashMap 的原理：碰撞、負載係數 — 必修 27 只教怎麼用，這章教為什麼</span></span></label>
+      <label class="item"><input type="checkbox"><span class="txt">翻《演算法》1-2 Big O 1-14～1-24＋2-2 陣列 vs 鏈結串列 2-4～2-16<span class="sub">580 張圖，視覺化理解執行時間</span></span></label>
 
       <div class="grouphd">影片｜進階 3 堂（這週只排 3 堂）</div>
       <label class="item"><input type="checkbox"><span class="txt">進階 6 — 資料庫設計思維與JPA Entity<span class="sub">JPA 原理</span></span></label>
@@ -281,6 +281,8 @@
       <label class="item"><input type="checkbox"><span class="txt">重讀設計模式筆記 3-5「與 Spring IoC 的對應」對照表<span class="sub">約 10 分鐘 · 進階 7 就是反轉注入，這張表是它的理論出處</span></span></label>
       <label class="item"><input type="checkbox"><span class="txt">看進階 7 時翻《軟體架構》第4章 p145–151<span class="sub">傳入耦合／傳出耦合／Demeter 法則 — IoC 要降的就是這個</span></span></label>
       <label class="item"><input type="checkbox"><span class="txt">看進階 10 時翻《深入淺出 Java》第12章 Lambdas 與 Streams p369–404<span class="sub">Service 層處理集合會用到；附錄B #1 Records p699 是 DTO 的現代寫法</span></span></label>
+      <label class="item"><input type="checkbox"><span class="txt">★ 11/18 前讀完《MySQL 樂趣》第18章 檢視表保護薪資資料 p351–362<span class="sub">權限控管＋敏感欄位隱藏 — 醫院個資的標準做法，面試可以講</span></span></label>
+      <label class="item"><input type="checkbox"><span class="txt">★ 11/18 前讀完《MySQL 樂趣》第14章 常見的錯誤 p253–262<span class="sub">不完整的 where 子句、在錯的資料庫操作、交易機制 — 正職會犯的錯</span></span></label>
 
       <div class="grouphd">築光</div>
       <label class="item"><input type="checkbox"><span class="txt">部署到朋友的主機</span></label>
@@ -340,83 +342,6 @@
     </div>
   </details>
 
-  <!-- 第 5 段 -->
-  <details>
-    <summary>
-      <span class="stage ext">第 5 段</span>
-      <span class="title"><span class="t">投遞＋接案需求＋FHIR 入門</span><span class="d">11/21 – 11/30</span></span>
-      <span class="badge" data-badge></span>
-    </summary>
-    <div class="pbar"><span data-pbar></span></div>
-    <div class="body">
-      <div class="deliver"><b>這段交付物：</b>履歷投出 5 家＋兩個案子各一頁需求規格＋FHIR 前兩週完成</div>
-      <div class="fixed">11/23（一）企業媒合表單發送</div>
-
-      <div class="grouphd">求職</div>
-      <label class="item"><input type="checkbox"><span class="txt">11/23 填企業媒合表單</span></label>
-      <label class="item"><input type="checkbox"><span class="txt">投遞高雄區醫院資訊室 5 家<span class="sub">履歷加一句：ICU 護理＋HIS 使用者＋正在學 FHIR</span></span></label>
-
-      <div class="grouphd">接案①｜居服核對報表（公司）</div>
-      <div class="note">可提前：11/20 前的週末先做「需求訪談」那一項，只聊不寫程式。</div>
-      <label class="item"><input type="checkbox"><span class="txt">需求訪談：誰用、每月核對哪些欄位、現在怎麼核對、預算範圍<span class="sub">這就是 SA 的工作，面試可以直接講</span></span></label>
-      <label class="item"><input type="checkbox"><span class="txt">先問清楚：你以員工身分另外收費，公司是否同意<span class="sub">口頭不夠，至少留一則 LINE 或 email</span></span></label>
-      <label class="item"><input type="checkbox"><span class="txt">決定授權方式：程式開源（MIT），公司付「安裝＋客製＋維護」費<span class="sub">開源和收費不衝突，賣的是服務不是程式碼</span></span></label>
-      <label class="item"><input type="checkbox"><span class="txt">個資去識別化：GitHub 上只放假資料<span class="sub">★ 個案姓名、地址、服務紀錄一筆都不能進 repo</span></span></label>
-
-      <div class="grouphd">接案②｜髮品客戶訂單（朋友）</div>
-      <label class="item"><input type="checkbox"><span class="txt">需求訪談 1 小時<span class="sub">客戶有哪些欄位？訂單怎麼記？最想查什麼（回購週期、熱銷品、欠款）？</span></span></label>
-      <label class="item"><input type="checkbox"><span class="txt">寫一頁需求規格＋報價給朋友確認<span class="sub">先寫「第一版不做什麼」，避免需求一直加</span></span></label>
-      <label class="item"><input type="checkbox"><span class="txt">技術選型：Google Sheets＋GAS 先做第一版<span class="sub">你最熟、朋友手機能開、不用主機費；之後要擴充再換</span></span></label>
-
-      <div class="grouphd">FHIR 入門｜第 1–2 週，每週 2–3 小時</div>
-      <label class="item"><input type="checkbox"><span class="txt">FHIR 第 1 週：看官網概覽，懂 Resource 是什麼</span></label>
-      <label class="item"><input type="checkbox"><span class="txt">讀 Patient 欄位，重點看 identifier<span class="sub">對應長庚「跨院區病歷號不同」的經驗</span></span></label>
-      <label class="item"><input type="checkbox"><span class="txt">手寫一個假病人的 Patient JSON</span></label>
-      <label class="item"><input type="checkbox"><span class="txt">FHIR 第 2 週：用 Postman 對 HAPI FHIR 測試伺服器 GET 一個 Patient</span></label>
-      <label class="item"><input type="checkbox"><span class="txt">查出一筆 Observation（心跳或血壓），逐欄看懂<span class="sub">subject 指向 Patient ＝ 資料庫外鍵</span></span></label>
-    </div>
-  </details>
-
-  <!-- 第 6 段 -->
-  <details>
-    <summary>
-      <span class="stage ext">第 6 段</span>
-      <span class="title"><span class="t">接案第一版＋FHIR 收尾</span><span class="d">12/01 – 12/14</span></span>
-      <span class="badge" data-badge></span>
-    </summary>
-    <div class="pbar"><span data-pbar></span></div>
-    <div class="body">
-      <div class="deliver"><b>這段交付物：</b>兩個案子第一版給對方試用＋FHIR 四週完成＋履歷作品集更新</div>
-      <div class="note">有面試時，面試準備優先，這段可以往後延，不用有罪惡感。</div>
-
-      <div class="grouphd">接案①｜居服核對報表</div>
-      <label class="item"><input type="checkbox"><span class="txt">建 GitHub repo：README＋LICENSE＋假資料範例</span></label>
-      <label class="item"><input type="checkbox"><span class="txt">公司用一個月的資料試跑核對<span class="sub">在公司電腦上用真資料，真資料不離開公司</span></span></label>
-      <label class="item"><input type="checkbox"><span class="txt">收回饋，列出要修的前 3 項</span></label>
-
-      <div class="grouphd">接案②｜髮品客戶訂單</div>
-      <label class="item"><input type="checkbox"><span class="txt">做出三張表：客戶、商品、訂單</span></label>
-      <label class="item"><input type="checkbox"><span class="txt">做出「查某位客戶的歷史訂單」功能<span class="sub">朋友最在意的就是這個</span></span></label>
-      <label class="item"><input type="checkbox"><span class="txt">朋友試用一週，收回饋＋收款</span></label>
-
-      <div class="grouphd">FHIR 入門｜第 3–4 週</div>
-      <label class="item"><input type="checkbox"><span class="txt">FHIR 第 3 週：看 TW Core IG 的 Patient，比較和國際版的差別</span></label>
-      <label class="item"><input type="checkbox"><span class="txt">讀 MedicationAdministration，對照 ICU 給藥紀錄</span></label>
-      <label class="item"><input type="checkbox"><span class="txt">FHIR 第 4 週：用 C# HttpClient 抓一筆 Observation 印出來<span class="sub">剛好接上 C# 課</span></span></label>
-      <label class="item"><input type="checkbox"><span class="txt">把長庚經驗＋FHIR 學習整理成 1 分鐘面試故事</span></label>
-
-      <div class="grouphd">履歷作品集</div>
-      <label class="item"><input type="checkbox"><span class="txt">把兩個接案加進履歷<span class="sub">「有真實使用者」比練習作品有說服力</span></span></label>
-      <label class="item"><input type="checkbox"><span class="txt">每個案子寫三行：需求是什麼、我怎麼訪談、做了什麼</span></label>
-
-      <div class="grouphd">n8n 工作流｜選做，髮品案第一版完成後</div>
-      <div class="note">用真實需求學：先從髮品案挑一個自動化，不另外看教學影片。居服個資不放進 n8n。</div>
-      <label class="item"><input type="checkbox"><span class="txt">先跟朋友確認要哪一個自動化<span class="sub">例：新訂單自動通知、每月寄回購提醒</span></span></label>
-      <label class="item"><input type="checkbox"><span class="txt">用 n8n 雲端試用版做出第一個工作流<span class="sub">觸發 → 讀 Google Sheets → 發通知</span></span></label>
-      <label class="item"><input type="checkbox"><span class="txt">對照 GAS 寫法，寫三行心得：哪些用 n8n 比較快、哪些用 GAS 比較好<span class="sub">面試講「工作流自動化」時的素材</span></span></label>
-    </div>
-  </details>
-
   <!-- 備註 -->
   <details>
     <summary>
@@ -437,16 +362,10 @@
         <b>11/23（一）</b>企業媒合表單發送。資格＝出席率 80%（你 100%，已達標）＋完成專案作品。
       </p>
       <p style="font-size:14px;">
-        <b>接案原則</b>：<br>
-        ・先訪談、再報價、最後才寫程式；報價前寫清楚「第一版不做什麼」<br>
-        ・開源的是程式碼，收費的是安裝、客製、維護<br>
-        ・居服資料是個資，真資料只留在公司電腦<br>
-        ・還款計劃 app 排在這兩個案子之後
-      </p>
-      <p style="font-size:14px;">
         <b>圖書館借閱分類</b>：<br>
-        ・<b>排進進度表（3 本）</b>：深入淺出軟體架構（配進階影片＋ADR）／深入淺出 Java（配必修影片＋筆試）／程式設計模式面試指南（配模擬面試）<br>
-        ・<b>備用</b>：圖解 SQL 查詢 — 必修 26–29 看不懂時再翻<br>
+        ・<b>排進進度表（5 本）</b>：圖解 SQL 查詢（第1段主力＋筆試練習題）／深入淺出軟體架構（配進階影片＋ADR）／深入淺出 Java（配必修影片＋筆試）／MySQL 樂趣（必修30＋11/18前讀 ch14、ch18）／世界第一簡單的演算法（筆試週 ch1、2、5）<br>
+        ・<b>第4段</b>：程式設計模式面試指南（模擬面試前翻）<br>
+        ・<b>硬期限</b>：MySQL 樂趣、演算法 11/18 到期且不可續借，所以不排進第 4 段<br>
         ・<b>11/23 之後</b>：大話設計模式／給全端工程師的職涯生存筆記<br>
         ・<b>還掉（6 本）</b>：深入淺出 C#（預約）／漫畫設計模式／深入淺出 Java／MySQL 開發的樂趣／世界第一簡單的演算法／GitHub Copilot
       </p>
